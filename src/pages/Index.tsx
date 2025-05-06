@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -77,6 +76,74 @@ const Index = () => {
       {/* Основной контент */}
       <main className="flex-1 container mx-auto py-12 px-4">
         <div className="max-w-6xl mx-auto">
+          {/* Инфографика процесса */}
+          <div className="mb-12 bg-white p-8 border border-neutral-200 rounded-lg shadow-sm">
+            <h2 className="text-2xl font-bold text-neutral-800 mb-6 text-center">Как работает наш сервис</h2>
+            <div className="relative">
+              <div className="hidden md:block absolute top-1/2 left-0 right-0 h-1 bg-yellow-500 -translate-y-1/2 z-0"></div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+                <div className="flex flex-col items-center text-center">
+                  <div className="bg-white p-3 rounded-full border-4 border-yellow-500 mb-4">
+                    <div className="bg-neutral-800 rounded-full p-3">
+                      <Icon name="ClipboardList" className="h-8 w-8 text-yellow-500" />
+                    </div>
+                  </div>
+                  <h3 className="font-bold text-lg mb-2">Создайте заявку</h3>
+                  <p className="text-neutral-600">Заполните форму с требуемыми параметрами вилочного погрузчика</p>
+                </div>
+                <div className="flex flex-col items-center text-center">
+                  <div className="bg-white p-3 rounded-full border-4 border-yellow-500 mb-4">
+                    <div className="bg-neutral-800 rounded-full p-3">
+                      <Icon name="Users" className="h-8 w-8 text-yellow-500" />
+                    </div>
+                  </div>
+                  <h3 className="font-bold text-lg mb-2">Получите предложения</h3>
+                  <p className="text-neutral-600">Проверенные поставщики отправят вам свои лучшие предложения</p>
+                </div>
+                <div className="flex flex-col items-center text-center">
+                  <div className="bg-white p-3 rounded-full border-4 border-yellow-500 mb-4">
+                    <div className="bg-neutral-800 rounded-full p-3">
+                      <Icon name="CheckCircle" className="h-8 w-8 text-yellow-500" />
+                    </div>
+                  </div>
+                  <h3 className="font-bold text-lg mb-2">Выберите лучшее</h3>
+                  <p className="text-neutral-600">Сравните предложения и выберите идеальный погрузчик по лучшей цене</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="mt-12 flex justify-center">
+              <div className="bg-neutral-100 p-6 rounded-lg max-w-3xl">
+                <div className="flex flex-col md:flex-row items-center gap-8">
+                  <div className="flex-shrink-0">
+                    <img 
+                      src="https://images.unsplash.com/photo-1595246325150-2db41d583926?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" 
+                      alt="Вилочный погрузчик" 
+                      className="rounded-lg shadow-md w-full md:w-40 lg:w-48 h-auto object-cover"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-xl mb-3 text-neutral-800">Преимущества покупки через наш сервис</h3>
+                    <ul className="space-y-2">
+                      <li className="flex items-start gap-2">
+                        <Icon name="Check" className="h-5 w-5 text-yellow-500 mt-0.5 shrink-0" />
+                        <span>Экономия до 15% благодаря конкуренции поставщиков</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Icon name="Check" className="h-5 w-5 text-yellow-500 mt-0.5 shrink-0" />
+                        <span>Все поставщики проверены и имеют отличную репутацию</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Icon name="Check" className="h-5 w-5 text-yellow-500 mt-0.5 shrink-0" />
+                        <span>Помощь в выборе технических характеристик под ваши задачи</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Форма заявки */}
             <Card className="flex-1 shadow-sm border-neutral-200 bg-white">
@@ -206,7 +273,7 @@ const Index = () => {
                     <Icon name="Shield" className="h-5 w-5 text-neutral-700 mt-0.5 shrink-0" />
                     <span>Проверенные поставщики складской техники с гарантией</span>
                   </li>
-                  <li className="flex items-start gap-3">
+                  <li className="flex items="starts gap-3">
                     <Icon name="Clock" className="h-5 w-5 text-neutral-700 mt-0.5 shrink-0" />
                     <span>Быстрый подбор оптимальной техники в течение 2 часов</span>
                   </li>
