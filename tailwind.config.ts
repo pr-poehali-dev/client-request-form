@@ -61,7 +61,23 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				// Добавляем цвета для дизайна спецтехники
+				yellow: {
+					500: "#F59E0B",
+					600: "#D97706",
+				},
+				neutral: {
+					100: "#F5F5F5",
+					200: "#E5E5E5",
+					300: "#D4D4D4",
+					400: "#A3A3A3",
+					500: "#737373",
+					600: "#525252",
+					700: "#404040",
+					800: "#262626",
+					900: "#171717",
+				},
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
