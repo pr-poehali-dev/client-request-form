@@ -7,10 +7,14 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import Icon from "@/components/ui/icon";
 import { Separator } from "@/components/ui/separator";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Switch } from "@/components/ui/switch";
 
 const Index = () => {
   const [weight, setWeight] = useState("");
   const [height, setHeight] = useState("");
+  const [engineType, setEngineType] = useState("diesel");
+  const [needsSideShift, setNeedsSideShift] = useState(false);
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
 
@@ -23,12 +27,14 @@ const Index = () => {
       setLoading(false);
       toast({
         title: "Заявка отправлена",
-        description: "Ваша заявка успешно создана и отправлена поставщикам",
+        description: "Ваша заявка успешно создана и отправлена поставщикам погрузчиков",
       });
       
       // Очистка формы после успешной отправки
       setWeight("");
       setHeight("");
+      setEngineType("diesel");
+      setNeedsSideShift(false);
     }, 1500);
   };
 
@@ -38,11 +44,11 @@ const Index = () => {
       <header className="bg-neutral-900 text-white py-4 px-6">
         <div className="container mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <Icon name="Wrench" size={24} className="text-yellow-500" />
-            <h1 className="text-xl font-bold tracking-tight">СПЕЦТЕХНИКА</h1>
+            <Icon name="Forklift" size={24} className="text-yellow-500" />
+            <h1 className="text-xl font-bold tracking-tight">ВИЛОЧНЫЕ ПОГРУЗЧИКИ</h1>
           </div>
           <div className="hidden md:flex gap-8">
-            <Button variant="link" className="text-white">Услуги</Button>
+            <Button variant="link" className="text-white">Каталог</Button>
             <Button variant="link" className="text-white">Техника</Button>
             <Button variant="link" className="text-white">Контакты</Button>
           </div>
@@ -57,14 +63,14 @@ const Index = () => {
         <div 
           className="absolute inset-0 opacity-20" 
           style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1635142913326-12c9ed067660?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3')",
+            backgroundImage: "url('https://images.unsplash.com/photo-1604413764976-8ca8f6e3e346?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3')",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         />
         <div className="container mx-auto relative z-10">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 max-w-2xl">Профессиональная аренда спецтехники для любых строительных задач</h2>
-          <p className="text-neutral-300 max-w-xl text-lg">Заполните форму ниже, чтобы создать заявку на аренду техники, и наши поставщики свяжутся с вами в кратчайшие сроки.</p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 max-w-2xl">Профессиональный подбор вилочных погрузчиков для вашего склада</h2>
+          <p className="text-neutral-300 max-w-xl text-lg">Заполните форму ниже, чтобы создать заявку на подбор подходящего погрузчика, и наши поставщики свяжутся с вами в кратчайшие сроки.</p>
         </div>
       </div>
 
@@ -77,7 +83,7 @@ const Index = () => {
               <CardHeader className="pb-4">
                 <CardTitle className="text-2xl font-bold text-neutral-800">Создать заявку</CardTitle>
                 <CardDescription>
-                  Укажите параметры требуемой техники
+                  Укажите параметры требуемого погрузчика
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -88,7 +94,7 @@ const Index = () => {
                       id="weight"
                       type="number"
                       step="0.1"
-                      placeholder="Например: 5.5"
+                      placeholder="Например: 3.5"
                       value={weight}
                       onChange={(e) => setWeight(e.target.value)}
                       required
@@ -101,12 +107,41 @@ const Index = () => {
                       id="height"
                       type="number"
                       step="0.1"
-                      placeholder="Например: 12.0"
+                      placeholder="Например: 4.5"
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
                       required
                       className="focus-visible:ring-yellow-500"
                     />
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="text-neutral-800">Тип двигателя</Label>
+                    <RadioGroup 
+                      value={engineType} 
+                      onValueChange={setEngineType}
+                      className="flex gap-6 pt-2"
+                    >
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="diesel" id="diesel" />
+                        <Label htmlFor="diesel" className="cursor-pointer">Дизель</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="petrol" id="petrol" />
+                        <Label htmlFor="petrol" className="cursor-pointer">Бензин</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="electric" id="electric" />
+                        <Label htmlFor="electric" className="cursor-pointer">Электро</Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+                  <div className="flex items-center space-x-2 pt-2">
+                    <Switch 
+                      id="sideshift" 
+                      checked={needsSideShift} 
+                      onCheckedChange={setNeedsSideShift} 
+                    />
+                    <Label htmlFor="sideshift" className="cursor-pointer">Нужна каретка бокового смещения</Label>
                   </div>
                   <Button 
                     type="submit" 
@@ -134,28 +169,28 @@ const Index = () => {
               <div className="bg-white p-6 border border-neutral-200 rounded-lg shadow-sm">
                 <h3 className="text-lg font-semibold text-neutral-800 mb-4 flex items-center gap-2">
                   <Icon name="Info" className="h-5 w-5 text-yellow-500" />
-                  О процессе аренды
+                  О процессе подбора
                 </h3>
                 <div className="space-y-4">
                   <div className="flex gap-3">
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-900 text-white shrink-0">1</div>
                     <div>
                       <p className="font-medium">Заполните форму заявки</p>
-                      <p className="text-neutral-500 text-sm">Укажите необходимые параметры техники</p>
+                      <p className="text-neutral-500 text-sm">Укажите необходимые параметры погрузчика</p>
                     </div>
                   </div>
                   <div className="flex gap-3">
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-900 text-white shrink-0">2</div>
                     <div>
                       <p className="font-medium">Получите предложения</p>
-                      <p className="text-neutral-500 text-sm">Поставщики ознакомятся с вашей заявкой и предложат варианты</p>
+                      <p className="text-neutral-500 text-sm">Поставщики предложат подходящие модели вилочных погрузчиков</p>
                     </div>
                   </div>
                   <div className="flex gap-3">
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-900 text-white shrink-0">3</div>
                     <div>
-                      <p className="font-medium">Выберите подходящий вариант</p>
-                      <p className="text-neutral-500 text-sm">Оцените условия и выберите оптимальное предложение</p>
+                      <p className="font-medium">Выберите подходящий погрузчик</p>
+                      <p className="text-neutral-500 text-sm">Оцените технические характеристики и выберите оптимальный вариант</p>
                     </div>
                   </div>
                 </div>
@@ -169,19 +204,19 @@ const Index = () => {
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
                     <Icon name="Shield" className="h-5 w-5 text-neutral-700 mt-0.5 shrink-0" />
-                    <span>Проверенные поставщики спецтехники с сертификатами</span>
+                    <span>Проверенные поставщики складской техники с гарантией</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Icon name="Clock" className="h-5 w-5 text-neutral-700 mt-0.5 shrink-0" />
-                    <span>Быстрое реагирование на заявки в течение 2 часов</span>
+                    <span>Быстрый подбор оптимальной техники в течение 2 часов</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Icon name="BadgePercent" className="h-5 w-5 text-neutral-700 mt-0.5 shrink-0" />
-                    <span>Конкурентные цены от разных поставщиков</span>
+                    <span>Конкурентные цены и выгодные условия приобретения</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <Icon name="Truck" className="h-5 w-5 text-neutral-700 mt-0.5 shrink-0" />
-                    <span>Техника доставляется точно в срок на объект</span>
+                    <Icon name="Wrench" className="h-5 w-5 text-neutral-700 mt-0.5 shrink-0" />
+                    <span>Техническая поддержка и сервисное обслуживание</span>
                   </li>
                 </ul>
               </div>
@@ -191,15 +226,15 @@ const Index = () => {
 
         {/* Виды техники */}
         <div className="max-w-6xl mx-auto mt-16">
-          <h2 className="text-2xl font-bold text-neutral-800 mb-8">Доступная спецтехника</h2>
+          <h2 className="text-2xl font-bold text-neutral-800 mb-8">Доступная складская техника</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { name: "Автокраны", icon: "Cpu", desc: "Грузоподъемность до 100 тонн" },
-              { name: "Экскаваторы", icon: "Hammer", desc: "Различной мощности и глубины копания" },
-              { name: "Погрузчики", icon: "Forklift", desc: "Фронтальные и телескопические" },
-              { name: "Бульдозеры", icon: "Truck", desc: "Для работ любой сложности" },
-              { name: "Самосвалы", icon: "Factory", desc: "Разной грузоподъемности" },
-              { name: "Автовышки", icon: "Maximize", desc: "Высота подъема до 40 метров" },
+              { name: "Вилочные погрузчики", icon: "Forklift", desc: "Грузоподъемность от 1 до 16 тонн" },
+              { name: "Ричтраки", icon: "MoveVertical", desc: "Для работы в узких проходах с высокими стеллажами" },
+              { name: "Штабелеры", icon: "Layers", desc: "Электрические и ручные модели" },
+              { name: "Тележки", icon: "ShoppingCart", desc: "Гидравлические и электрические" },
+              { name: "Комплектовщики заказов", icon: "PackageCheck", desc: "Для эффективной работы на складе" },
+              { name: "Тягачи", icon: "TruckFront", desc: "Для транспортировки тяжелых грузов" },
             ].map((item, i) => (
               <div key={i} className="bg-white p-6 border border-neutral-200 rounded-lg shadow-sm flex flex-col">
                 <div className="flex items-center gap-3 mb-3">
@@ -221,11 +256,11 @@ const Index = () => {
           <div className="flex flex-col md:flex-row justify-between gap-8">
             <div className="max-w-xs">
               <div className="flex items-center gap-3 mb-4">
-                <Icon name="Wrench" size={20} className="text-yellow-500" />
-                <h3 className="font-bold">СПЕЦТЕХНИКА</h3>
+                <Icon name="Forklift" size={20} className="text-yellow-500" />
+                <h3 className="font-bold">ВИЛОЧНЫЕ ПОГРУЗЧИКИ</h3>
               </div>
               <p className="text-neutral-400 text-sm">
-                Сервис подбора спецтехники для строительных, дорожных и погрузочно-разгрузочных работ
+                Сервис подбора вилочных погрузчиков и складской техники для эффективной организации работы склада
               </p>
             </div>
             
@@ -234,7 +269,7 @@ const Index = () => {
               <div className="space-y-2 text-neutral-400 text-sm">
                 <p className="flex items-center gap-2">
                   <Icon name="MapPin" className="h-4 w-4 text-yellow-500" />
-                  г. Москва, ул. Строительная, 42
+                  г. Москва, ул. Складская, 24
                 </p>
                 <p className="flex items-center gap-2">
                   <Icon name="Phone" className="h-4 w-4 text-yellow-500" />
@@ -242,7 +277,7 @@ const Index = () => {
                 </p>
                 <p className="flex items-center gap-2">
                   <Icon name="Mail" className="h-4 w-4 text-yellow-500" />
-                  info@spectehnika.ru
+                  info@vilochnye-pogruzchiki.ru
                 </p>
               </div>
             </div>
@@ -250,9 +285,9 @@ const Index = () => {
             <div>
               <h3 className="font-semibold mb-4">Информация</h3>
               <div className="space-y-2 text-sm">
-                <Button variant="link" className="text-neutral-400 h-auto p-0">О компании</Button>
+                <Button variant="link" className="text-neutral-400 h-auto p-0">О сервисе</Button>
                 <br />
-                <Button variant="link" className="text-neutral-400 h-auto p-0">Условия аренды</Button>
+                <Button variant="link" className="text-neutral-400 h-auto p-0">Типы погрузчиков</Button>
                 <br />
                 <Button variant="link" className="text-neutral-400 h-auto p-0">Стать поставщиком</Button>
                 <br />
@@ -264,7 +299,7 @@ const Index = () => {
           <Separator className="my-6 bg-neutral-800" />
           
           <div className="text-center text-neutral-500 text-sm">
-            <p>© 2025 СПЕЦТЕХНИКА. Все права защищены.</p>
+            <p>© 2025 ВИЛОЧНЫЕ ПОГРУЗЧИКИ. Все права защищены.</p>
           </div>
         </div>
       </footer>
